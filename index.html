@@ -6,783 +6,748 @@
 <title>C.ZAMBONI — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Mono:wght@400;500&family=Syne:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Space+Grotesk:wght@300;400;500;700&family=Unbounded:wght@400;700;900&family=DM+Serif+Display:ital@0;1&family=Epilogue:wght@300;400;700;900&family=Fraunces:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════
-   SÉLECTEUR DE TEMPLATE
-═══════════════════════════════════════ */
-.template-switcher {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(15,15,20,0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50px;
-  padding: 6px 10px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-}
 
-.tpl-btn {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.45);
-  background: transparent;
-  border: none;
-  border-radius: 50px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-}
-
-.tpl-btn:hover { color: rgba(255,255,255,0.8); }
-
-.tpl-btn.active {
-  background: rgba(255,255,255,0.12);
-  color: white;
-}
-
-/* ═══════════════════════════════════════
-   TEMPLATES — base reset
-═══════════════════════════════════════ */
-.template { display: none; min-height: 100vh; }
-.template.active { display: block; }
-
+/* ══════════ RESET ══════════ */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior:smooth; }
+body { overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+.template { display:none; min-height:100vh; }
+.template.active { display:block; }
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
 
-
-/* ╔═══════════════════════════════════════╗
-   ║  TEMPLATE 1 — Style actuel amélioré  ║
-   ╚═══════════════════════════════════════╝ */
-#t1 {
-  font-family: 'Inter', sans-serif;
-  background: #ffffff;
-  color: #6E6E6E;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+/* ══════════ SÉLECTEUR ══════════ */
+.switcher {
+  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  z-index:9999;
+  display:flex; align-items:center; gap:4px;
+  background:rgba(10,10,12,0.88);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:50px; padding:5px 8px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.4);
+  max-width:calc(100vw - 24px);
+  flex-wrap:nowrap; overflow-x:auto;
+  scrollbar-width:none;
 }
+.switcher::-webkit-scrollbar { display:none; }
+.tb {
+  font-family:'DM Mono',monospace; font-size:10px; font-weight:500;
+  color:rgba(255,255,255,0.38); background:transparent; border:none;
+  border-radius:50px; padding:6px 12px; cursor:pointer;
+  transition:all 0.2s; white-space:nowrap; letter-spacing:0.3px; flex-shrink:0;
+}
+.tb:hover { color:rgba(255,255,255,0.75); }
+.tb.active { background:rgba(255,255,255,0.13); color:white; }
+
+
+/* ╔══════════════════════════════════════════╗
+   ║  T1 — Actuel (Blue Glass)               ║
+   ╚══════════════════════════════════════════╝ */
+#t1 { font-family:'Inter',sans-serif; background:#fff; color:#6E6E6E; }
 
 #t1 nav {
-  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-  z-index: 300;
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(22px) saturate(1.6);
-  -webkit-backdrop-filter: blur(22px) saturate(1.6);
-  border: 1px solid rgba(255,255,255,0.8);
-  border-radius: 50px;
-  padding: 10px 22px;
-  display: flex; align-items: center; gap: 24px;
-  box-shadow: 0 8px 32px rgba(0,136,255,0.08), 0 1.5px 8px rgba(0,0,0,0.06);
-  animation: t1-slideDown 0.5s ease both;
-  white-space: nowrap;
-  max-width: calc(100vw - 32px);
+  position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:300;
+  background:rgba(255,255,255,0.5); backdrop-filter:blur(22px) saturate(1.6); -webkit-backdrop-filter:blur(22px) saturate(1.6);
+  border:1px solid rgba(255,255,255,0.85); border-radius:50px;
+  padding:10px 22px; display:flex; align-items:center; gap:24px;
+  box-shadow:0 8px 32px rgba(0,136,255,0.08); max-width:calc(100vw - 32px); white-space:nowrap;
 }
+#t1 .nl { font-weight:800; font-size:13px; letter-spacing:1.5px; color:#1a1a1a; text-transform:uppercase; text-decoration:none; }
+#t1 .nd { width:1px; height:18px; background:rgba(0,0,0,0.1); }
+#t1 .nlinks { display:flex; gap:22px; list-style:none; }
+#t1 .nlinks a { font-size:13px; font-weight:500; color:#6E6E6E; text-decoration:none; transition:color 0.2s; }
+#t1 .nlinks a:hover { color:#0088FF; }
+#t1 .nc { background:#0088FF; color:#fff; border:none; border-radius:50px; padding:8px 18px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+#t1 .nc:hover { background:#006fcc; }
 
-@keyframes t1-slideDown {
-  from { opacity:0; transform:translateX(-50%) translateY(-14px); }
-  to   { opacity:1; transform:translateX(-50%) translateY(0); }
-}
-
-#t1 .nav-logo { font-weight:800; font-size:13px; letter-spacing:1.5px; color:#1a1a1a; text-transform:uppercase; text-decoration:none; flex-shrink:0; }
-#t1 .nav-div { width:1px; height:18px; background:rgba(0,0,0,0.1); flex-shrink:0; }
-#t1 .nav-links { display:flex; gap:22px; list-style:none; }
-#t1 .nav-links a { font-size:13px; font-weight:500; color:#6E6E6E; text-decoration:none; transition:color 0.2s; }
-#t1 .nav-links a:hover { color:#0088FF; }
-#t1 .nav-cta { background:#0088FF; color:white; border:none; border-radius:50px; padding:8px 18px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; flex-shrink:0; }
-#t1 .nav-cta:hover { background:#006fcc; box-shadow:0 4px 16px rgba(0,136,255,0.35); }
-
-/* blobs */
 #t1 .blobs { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-#t1 .blob { position:absolute; border-radius:50%; }
-#t1 .b1 { width:420px; height:420px; border:48px solid #0088FF; opacity:0.32; top:-100px; right:-100px; filter:blur(6px); animation:spin1 22s linear infinite; }
-#t1 .b2 { width:280px; height:280px; border:38px solid #66b8ff; opacity:0.25; bottom:60px; left:-80px; filter:blur(5px); animation:spin1 30s linear infinite reverse; }
+#t1 .bl { position:absolute; border-radius:50%; }
+#t1 .b1 { width:420px; height:420px; border:48px solid #0088FF; opacity:0.32; top:-100px; right:-100px; filter:blur(6px); animation:spin 22s linear infinite; }
+#t1 .b2 { width:280px; height:280px; border:38px solid #66b8ff; opacity:0.25; bottom:60px; left:-80px; filter:blur(5px); animation:spin 30s linear infinite reverse; }
 #t1 .b3 { width:160px; height:160px; background:#cce5ff; opacity:0.45; bottom:30px; right:8%; filter:blur(28px); }
-@keyframes spin1 { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
 
-/* hero */
-#t1 .hero {
-  min-height:100vh; display:flex; align-items:center; justify-content:center;
-  padding:100px 40px 60px; position:relative; z-index:1;
-}
+#t1 .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 40px 60px; position:relative; z-index:1; }
+#t1 .hi { max-width:820px; width:100%; display:grid; grid-template-columns:260px 1fr; gap:64px; align-items:center; }
 
-#t1 .hero-inner {
-  max-width:820px; width:100%;
-  display:grid; grid-template-columns:260px 1fr; gap:64px; align-items:center;
-}
-
-/* Photo + tags — disposition réagencée */
-#t1 .photo-col {
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-#t1 .photo-ring {
+#t1 .pc { position:relative; display:flex; flex-direction:column; align-items:center; }
+#t1 .pr {
   width:210px; height:210px; border-radius:50%; overflow:hidden;
   position:relative; z-index:2;
   box-shadow:0 20px 60px rgba(0,136,255,0.18);
 }
-
-#t1 .photo-ring img {
-  width:100%; height:100%; object-fit:cover;
-  object-position:center 8%;
+#t1 .pr img {
+  width:120%; height:120%;
+  object-fit:cover;
+  /* Zoom et recentrage sur le visage */
+  object-position:center 12%;
+  margin-left:-10%; margin-top:-5%;
   filter:grayscale(100%);
-  transition:filter 0.45s;
-  display:block;
+  transition:filter 0.45s; display:block;
 }
-#t1 .photo-ring:hover img { filter:grayscale(0%); }
+#t1 .pr:hover img { filter:grayscale(0%); }
 
-/* Tag "disponible" : AU-DESSUS de la photo, décalé à droite → texte hors du cercle */
-#t1 .tag-available {
-  position:absolute;
-  top:-18px;
-  left:50%;
-  transform:translateX(-20%);
-  z-index:4;
+/* Tag disponible — au-dessus, décalé droite, texte hors du cercle */
+#t1 .ta {
+  position:absolute; top:-16px; left:38px; z-index:4;
   display:inline-flex; align-items:center; gap:7px;
-  background:rgba(255,255,255,0.55);
-  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,0.85);
-  border-radius:50px; padding:6px 16px 6px 10px;
-  font-family:'Inter',sans-serif; font-size:12px; font-weight:500; color:#1a1a1a;
-  box-shadow:0 4px 20px rgba(0,136,255,0.1);
-  white-space:nowrap;
+  background:rgba(255,255,255,0.6); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.9); border-radius:50px; padding:6px 16px 6px 10px;
+  font-size:12px; font-weight:500; color:#1a1a1a;
+  box-shadow:0 4px 20px rgba(0,136,255,0.1); white-space:nowrap;
+}
+#t1 .td { width:8px; height:8px; border-radius:50%; background:#0088FF; flex-shrink:0; box-shadow:0 0 0 3px rgba(0,136,255,0.2); animation:pulse1 2s infinite; }
+@keyframes pulse1 { 0%,100%{box-shadow:0 0 0 3px rgba(0,136,255,0.2)} 50%{box-shadow:0 0 0 7px rgba(0,136,255,0.06)} }
+
+/* Tag rôle — en bas à gauche */
+#t1 .tr {
+  position:absolute; bottom:8px; left:-12px; z-index:4;
+  background:#0088FF; color:#fff; font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase;
+  padding:7px 18px; border-radius:50px; box-shadow:0 4px 16px rgba(0,136,255,0.35); white-space:nowrap;
 }
 
-#t1 .tag-dot { width:8px; height:8px; border-radius:50%; background:#0088FF; flex-shrink:0; box-shadow:0 0 0 3px rgba(0,136,255,0.2); animation:t1pulse 2s infinite; }
-@keyframes t1pulse { 0%,100%{box-shadow:0 0 0 3px rgba(0,136,255,0.2)} 50%{box-shadow:0 0 0 7px rgba(0,136,255,0.07)} }
-
-/* Tag "graphic designer" : EN BAS à gauche, déborde à gauche */
-#t1 .tag-role {
-  position:absolute;
-  bottom:6px;
-  left:-14px;
-  z-index:4;
-  background:#0088FF; color:white;
-  font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase;
-  padding:7px 18px; border-radius:50px;
-  box-shadow:0 4px 16px rgba(0,136,255,0.35);
-  white-space:nowrap;
-}
-
-#t1 .section-label { font-size:10.5px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#0088FF; margin-bottom:12px; }
+#t1 .sl { font-size:10.5px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#0088FF; margin-bottom:12px; }
 #t1 h1 { font-size:clamp(28px,4vw,44px); font-weight:800; line-height:1.1; color:#1a1a1a; margin-bottom:20px; letter-spacing:-0.5px; }
 #t1 h1 span { color:#0088FF; }
+#t1 .bc { background:rgba(255,255,255,0.5); backdrop-filter:blur(22px) saturate(1.6); -webkit-backdrop-filter:blur(22px) saturate(1.6); border:1px solid rgba(255,255,255,0.85); border-radius:18px; padding:26px 30px; font-size:14.5px; line-height:1.8; color:#6E6E6E; box-shadow:0 8px 32px rgba(0,136,255,0.07); position:relative; overflow:hidden; }
+#t1 .bc::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,#0088FF,#66b8ff); border-radius:3px 0 0 3px; }
 
-#t1 .bio-card {
-  background:rgba(255,255,255,0.5);
-  backdrop-filter:blur(22px) saturate(1.6); -webkit-backdrop-filter:blur(22px) saturate(1.6);
-  border:1px solid rgba(255,255,255,0.85);
-  border-radius:18px; padding:26px 30px;
-  font-size:14.5px; line-height:1.8; color:#6E6E6E;
-  box-shadow:0 8px 32px rgba(0,136,255,0.08), 0 1.5px 8px rgba(0,0,0,0.04);
-  position:relative; overflow:hidden;
-}
-#t1 .bio-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,#0088FF,#66b8ff); border-radius:3px 0 0 3px; }
-
-/* sections */
-#t1 .section-wrap { padding:72px 20px; max-width:900px; margin:0 auto; position:relative; z-index:1; }
-#t1 .section-title { font-size:clamp(22px,3vw,32px); font-weight:800; color:#1a1a1a; margin-bottom:8px; letter-spacing:-0.3px; }
-#t1 .section-sub { color:#b0b0b0; font-size:14px; margin-bottom:36px; }
-
-#t1 .works-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:14px; min-height:380px; }
-#t1 .work-card:first-child { grid-row:span 2; }
-#t1 .work-card { background:white; border-radius:16px; overflow:hidden; border:1px solid #ebebeb; box-shadow:0 2px 12px rgba(0,0,0,0.04); cursor:pointer; transition:transform 0.25s,box-shadow 0.25s; position:relative; display:flex; align-items:center; justify-content:center; }
-#t1 .work-card:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,136,255,0.12); }
-#t1 .ph { width:100%; height:100%; min-height:110px; background:linear-gradient(135deg,#f0f7ff,#ddeeff); display:flex; align-items:center; justify-content:center; color:#66b8ff; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
-#t1 .work-overlay { position:absolute; inset:0; background:rgba(0,136,255,0.07); opacity:0; transition:opacity 0.25s; display:flex; align-items:center; justify-content:center; }
-#t1 .work-card:hover .work-overlay { opacity:1; }
-#t1 .work-overlay span { background:#0088FF; color:white; font-size:12px; font-weight:600; padding:7px 20px; border-radius:50px; }
+#t1 .sw { padding:72px 20px; max-width:900px; margin:0 auto; position:relative; z-index:1; }
+#t1 .st { font-size:clamp(22px,3vw,32px); font-weight:800; color:#1a1a1a; margin-bottom:8px; }
+#t1 .ss { color:#b0b0b0; font-size:14px; margin-bottom:36px; }
+#t1 .wg { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:14px; min-height:360px; }
+#t1 .wg .wc:first-child { grid-row:span 2; }
+#t1 .wc { background:#fff; border-radius:16px; overflow:hidden; border:1px solid #ebebeb; box-shadow:0 2px 12px rgba(0,0,0,0.04); cursor:pointer; transition:all 0.25s; position:relative; display:flex; align-items:center; justify-content:center; }
+#t1 .wc:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,136,255,0.12); }
+#t1 .ph { width:100%; height:100%; min-height:100px; background:linear-gradient(135deg,#f0f7ff,#ddeeff); display:flex; align-items:center; justify-content:center; color:#66b8ff; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+#t1 .wo { position:absolute; inset:0; background:rgba(0,136,255,0.07); opacity:0; transition:opacity 0.25s; display:flex; align-items:center; justify-content:center; }
+#t1 .wc:hover .wo { opacity:1; }
+#t1 .wo span { background:#0088FF; color:#fff; font-size:12px; font-weight:600; padding:7px 20px; border-radius:50px; }
 #t1 .dots { display:flex; gap:7px; }
 #t1 .dots span { width:9px; height:9px; border-radius:50%; background:#0088FF; }
-
-#t1 .blog-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-#t1 .blog-card { background:white; border-radius:16px; overflow:hidden; border:1px solid #ebebeb; box-shadow:0 2px 12px rgba(0,0,0,0.04); min-height:220px; cursor:pointer; transition:transform 0.25s,box-shadow 0.25s; display:flex; flex-direction:column; }
-#t1 .blog-card:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,136,255,0.12); }
-#t1 .blog-top { flex:1; background:linear-gradient(135deg,#eef6ff,#d9eeff); position:relative; overflow:hidden; min-height:130px; }
-#t1 .blog-top .bd { position:absolute; border-radius:50%; border:14px solid #66b8ff; opacity:0.18; width:100px; height:100px; bottom:-24px; right:-24px; }
-#t1 .blog-bot { padding:16px 18px 18px; }
-#t1 .blog-tag { background:#cce5ff; color:#0088FF; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:50px; display:inline-block; margin-bottom:8px; }
-#t1 .blog-card h3 { font-size:14px; font-weight:600; color:#1a1a1a; }
-
-#t1 footer { background:#0f172a; color:white; text-align:center; padding:64px 20px 48px; position:relative; overflow:hidden; }
+#t1 .bg2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+#t1 .bcard { background:#fff; border-radius:16px; overflow:hidden; border:1px solid #ebebeb; min-height:200px; cursor:pointer; transition:all 0.25s; display:flex; flex-direction:column; }
+#t1 .bcard:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,136,255,0.12); }
+#t1 .bt { flex:1; background:linear-gradient(135deg,#eef6ff,#d9eeff); position:relative; overflow:hidden; min-height:120px; }
+#t1 .bt .bd { position:absolute; border-radius:50%; border:14px solid #66b8ff; opacity:0.18; width:100px; height:100px; bottom:-24px; right:-24px; }
+#t1 .bb { padding:16px 18px 18px; }
+#t1 .btag { background:#cce5ff; color:#0088FF; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:50px; display:inline-block; margin-bottom:8px; }
+#t1 .bcard h3 { font-size:14px; font-weight:600; color:#1a1a1a; }
+#t1 footer { background:#0f172a; color:#fff; text-align:center; padding:64px 20px 48px; }
 #t1 footer h2 { font-size:clamp(22px,4vw,30px); font-weight:800; margin-bottom:10px; }
-#t1 footer p { color:rgba(255,255,255,0.45); font-size:14px; margin-bottom:28px; }
-#t1 .foot-btn { background:#0088FF; color:white; border:none; border-radius:50px; padding:13px 32px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.2s; }
-#t1 .foot-btn:hover { background:#006fcc; transform:scale(1.05); box-shadow:0 6px 20px rgba(0,136,255,0.4); }
-#t1 .foot-copy { margin-top:40px; font-size:11px; color:rgba(255,255,255,0.2); }
+#t1 footer .fp { color:rgba(255,255,255,0.4); font-size:14px; margin-bottom:28px; }
+#t1 .fb { background:#0088FF; color:#fff; border:none; border-radius:50px; padding:13px 32px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.2s; }
+#t1 .fb:hover { background:#006fcc; transform:scale(1.05); }
+#t1 .fc { margin-top:40px; font-size:11px; color:rgba(255,255,255,0.15); }
 
 @media(max-width:720px){
-  #t1 .hero-inner { grid-template-columns:1fr; gap:48px; text-align:center; }
-  #t1 .photo-col { align-items:center; margin:0 auto; }
-  #t1 .nav-links { display:none; }
-  #t1 .works-grid { grid-template-columns:1fr 1fr; min-height:unset; }
-  #t1 .work-card:first-child { grid-column:span 2; grid-row:span 1; }
-  #t1 .blog-grid { grid-template-columns:1fr; }
+  #t1 .hi { grid-template-columns:1fr; gap:48px; text-align:center; }
+  #t1 .pc { margin:0 auto; }
+  #t1 .nlinks { display:none; }
+  #t1 .nd { display:none; }
+  #t1 .wg { grid-template-columns:1fr 1fr; min-height:unset; }
+  #t1 .wg .wc:first-child { grid-column:span 2; grid-row:span 1; }
+  #t1 .bg2 { grid-template-columns:1fr; }
 }
 
 
-/* ╔═══════════════════════════════════════════════════╗
-   ║  TEMPLATE 2 — Éditorial noir / typographie forte ║
-   ╚═══════════════════════════════════════════════════╝ */
-#t2 {
-  font-family:'Syne',sans-serif;
-  background:#0a0a0a;
-  color:#e8e2d9;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-
-#t2 nav {
-  position:fixed; top:0; left:0; right:0; z-index:300;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:20px 48px;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-  background:rgba(10,10,10,0.9);
-  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-}
-
-#t2 .nav-logo { font-weight:800; font-size:16px; letter-spacing:3px; color:#fff; text-transform:uppercase; text-decoration:none; }
-#t2 .nav-links { display:flex; gap:32px; list-style:none; }
-#t2 .nav-links a { font-size:12px; font-weight:400; color:rgba(255,255,255,0.4); text-decoration:none; letter-spacing:2px; text-transform:uppercase; transition:color 0.2s; }
-#t2 .nav-links a:hover { color:white; }
-#t2 .nav-cta { background:transparent; color:white; border:1px solid rgba(255,255,255,0.3); border-radius:2px; padding:9px 24px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
-#t2 .nav-cta:hover { background:white; color:#0a0a0a; }
-
-#t2 .hero {
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  position:relative;
-  overflow:hidden;
-}
-
-/* Ligne décorative verticale */
-#t2 .hero::after { content:''; position:absolute; top:0; left:50%; width:1px; height:100%; background:rgba(255,255,255,0.06); }
-
-/* Côté gauche : photo pleine hauteur */
-#t2 .hero-img {
-  position:relative;
-  overflow:hidden;
-}
-
-#t2 .hero-img img {
-  width:100%; height:100%;
-  object-fit:cover; object-position:center 8%;
-  filter:grayscale(100%) contrast(1.1);
-  display:block;
-}
-
-/* Overlay dégradé sur la photo */
-#t2 .hero-img::after {
-  content:'';
-  position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.6) 100%);
-}
-
-/* Tags sur la photo */
-#t2 .t2-tag-role {
-  position:absolute; bottom:40px; left:32px; z-index:3;
-  font-family:'DM Mono',monospace; font-size:10px; font-weight:500;
-  letter-spacing:3px; text-transform:uppercase; color:#0a0a0a;
-  background:#e8e2d9; padding:8px 18px; border-radius:2px;
-}
-
-#t2 .t2-tag-avail {
-  position:absolute; top:100px; right:-1px; z-index:3;
-  display:flex; align-items:center; gap:8px;
-  background:rgba(10,10,10,0.8);
-  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:2px 0 0 2px;
-  padding:10px 16px;
-  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,0.7);
-}
-
-#t2 .t2-dot { width:6px; height:6px; border-radius:50%; background:#22c55e; animation:t2pulse 2s infinite; }
-@keyframes t2pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-/* Côté droit : texte */
-#t2 .hero-text {
-  display:flex; flex-direction:column; justify-content:center;
-  padding:120px 64px 64px 64px;
-  position:relative;
-}
-
-#t2 .t2-number { font-family:'DM Mono',monospace; font-size:11px; color:rgba(255,255,255,0.25); letter-spacing:3px; margin-bottom:32px; }
-#t2 h1 { font-family:'Playfair Display',serif; font-size:clamp(48px,5vw,72px); font-weight:900; line-height:1.0; color:white; margin-bottom:32px; letter-spacing:-1px; }
-#t2 h1 em { font-style:italic; color:rgba(255,255,255,0.4); }
-#t2 .t2-bio { font-size:14px; line-height:1.85; color:rgba(255,255,255,0.45); max-width:380px; margin-bottom:48px; font-weight:300; }
-
-#t2 .t2-cta { display:inline-flex; align-items:center; gap:12px; color:white; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:gap 0.2s; }
-#t2 .t2-cta:hover { gap:20px; }
-#t2 .t2-arrow { width:40px; height:1px; background:white; position:relative; }
-#t2 .t2-arrow::after { content:''; position:absolute; right:0; top:-3px; width:7px; height:7px; border-top:1px solid white; border-right:1px solid white; transform:rotate(45deg); }
-
-/* Sections T2 */
-#t2 .t2-section { padding:80px 80px; max-width:1200px; margin:0 auto; }
-#t2 .t2-section-head { display:flex; align-items:baseline; gap:24px; margin-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:24px; }
-#t2 .t2-num { font-family:'DM Mono',monospace; font-size:11px; color:rgba(255,255,255,0.2); letter-spacing:2px; }
-#t2 .t2-title { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:white; }
-
-#t2 .t2-works { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-#t2 .t2-work { background:rgba(255,255,255,0.03); aspect-ratio:1; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s; position:relative; overflow:hidden; }
-#t2 .t2-work:hover { background:rgba(255,255,255,0.07); }
-#t2 .t2-work span { font-family:'DM Mono',monospace; font-size:10px; color:rgba(255,255,255,0.15); letter-spacing:2px; text-transform:uppercase; }
-#t2 .t2-work:first-child { grid-column:span 2; aspect-ratio:2/1; }
-
-#t2 .t2-blog { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-#t2 .t2-bcard { border-top:1px solid rgba(255,255,255,0.1); padding-top:24px; cursor:pointer; }
-#t2 .t2-bcard:hover .t2-btitle { color:white; }
-#t2 .t2-btag { font-family:'DM Mono',monospace; font-size:10px; color:rgba(255,255,255,0.2); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
-#t2 .t2-btitle { font-family:'Playfair Display',serif; font-size:22px; color:rgba(255,255,255,0.6); font-weight:700; transition:color 0.2s; }
-
-#t2 footer { border-top:1px solid rgba(255,255,255,0.06); padding:80px; text-align:center; }
-#t2 footer h2 { font-family:'Playfair Display',serif; font-size:clamp(32px,5vw,56px); font-weight:900; color:white; margin-bottom:16px; }
-#t2 footer p { color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:36px; font-weight:300; }
-#t2 .t2-foot-btn { display:inline-flex; align-items:center; gap:12px; color:white; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; border:1px solid rgba(255,255,255,0.2); padding:14px 32px; transition:all 0.2s; }
-#t2 .t2-foot-btn:hover { background:white; color:#0a0a0a; }
-#t2 .t2-copy { margin-top:60px; font-size:11px; color:rgba(255,255,255,0.1); letter-spacing:1px; font-family:'DM Mono',monospace; }
-
-@media(max-width:900px){
-  #t2 .hero { grid-template-columns:1fr; }
-  #t2 .hero-img { min-height:50vh; }
-  #t2 nav { padding:16px 24px; }
-  #t2 .nav-links { display:none; }
-  #t2 .hero-text { padding:60px 32px; }
-  #t2 .t2-section { padding:60px 24px; }
-  #t2 .t2-works { grid-template-columns:1fr 1fr; }
-  #t2 .t2-work:first-child { grid-column:span 2; }
-  #t2 .t2-blog { grid-template-columns:1fr; }
-  #t2 footer { padding:60px 24px; }
-}
+/* ╔══════════════════════════════════════════╗
+   ║  T2 — Éditorial noir / Playfair        ║
+   ╚══════════════════════════════════════════╝ */
+#t2 { font-family:'Syne',sans-serif; background:#080808; color:#e8e2d9; }
+#t2 nav { position:fixed; top:0; left:0; right:0; z-index:300; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; border-bottom:1px solid rgba(255,255,255,0.05); background:rgba(8,8,8,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
+#t2 .nl { font-weight:800; font-size:16px; letter-spacing:3px; color:#fff; text-transform:uppercase; text-decoration:none; }
+#t2 .nlinks { display:flex; gap:32px; list-style:none; }
+#t2 .nlinks a { font-size:11px; font-weight:400; color:rgba(255,255,255,0.35); text-decoration:none; letter-spacing:2px; text-transform:uppercase; transition:color 0.2s; }
+#t2 .nlinks a:hover { color:#fff; }
+#t2 .nc { background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.25); border-radius:2px; padding:9px 24px; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+#t2 .nc:hover { background:#fff; color:#080808; }
+#t2 .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
+#t2 .hero::after { content:''; position:absolute; top:0; left:50%; width:1px; height:100%; background:rgba(255,255,255,0.05); }
+#t2 .hi { position:relative; overflow:hidden; }
+#t2 .hi img { width:100%; height:100%; object-fit:cover; object-position:center 10%; filter:grayscale(100%) contrast(1.1); display:block; }
+#t2 .hi::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,8,8,0.1) 0%,rgba(8,8,8,0.6) 100%); }
+#t2 .t2r { position:absolute; bottom:40px; left:32px; z-index:3; font-family:'DM Mono',monospace; font-size:10px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#080808; background:#e8e2d9; padding:8px 18px; border-radius:2px; }
+#t2 .t2a { position:absolute; top:100px; right:-1px; z-index:3; display:flex; align-items:center; gap:8px; background:rgba(8,8,8,0.85); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.08); border-radius:2px 0 0 2px; padding:10px 16px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(255,255,255,0.6); }
+#t2 .t2d { width:6px; height:6px; border-radius:50%; background:#22c55e; animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+#t2 .ht { display:flex; flex-direction:column; justify-content:center; padding:120px 64px 64px; }
+#t2 .tn { font-family:'DM Mono',monospace; font-size:11px; color:rgba(255,255,255,0.2); letter-spacing:3px; margin-bottom:32px; }
+#t2 h1 { font-family:'Playfair Display',serif; font-size:clamp(48px,5vw,72px); font-weight:900; line-height:1.0; color:#fff; margin-bottom:32px; letter-spacing:-1px; }
+#t2 h1 em { font-style:italic; color:rgba(255,255,255,0.35); }
+#t2 .bio { font-size:14px; line-height:1.85; color:rgba(255,255,255,0.4); max-width:380px; margin-bottom:48px; font-weight:300; }
+#t2 .cta { display:inline-flex; align-items:center; gap:12px; color:#fff; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:gap 0.2s; }
+#t2 .cta:hover { gap:20px; }
+#t2 .arr { width:40px; height:1px; background:#fff; position:relative; }
+#t2 .arr::after { content:''; position:absolute; right:0; top:-3px; width:7px; height:7px; border-top:1px solid #fff; border-right:1px solid #fff; transform:rotate(45deg); }
+#t2 .sw { padding:80px; max-width:1200px; margin:0 auto; }
+#t2 .sh { display:flex; align-items:baseline; gap:24px; margin-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:24px; }
+#t2 .sn { font-family:'DM Mono',monospace; font-size:11px; color:rgba(255,255,255,0.18); letter-spacing:2px; }
+#t2 .st { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:#fff; }
+#t2 .wg { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+#t2 .wc { background:rgba(255,255,255,0.03); aspect-ratio:1; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s; }
+#t2 .wc:hover { background:rgba(255,255,255,0.07); }
+#t2 .wc span { font-family:'DM Mono',monospace; font-size:10px; color:rgba(255,255,255,0.12); letter-spacing:2px; text-transform:uppercase; }
+#t2 .wc:first-child { grid-column:span 2; aspect-ratio:2/1; }
+#t2 .bg2 { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+#t2 .bc { border-top:1px solid rgba(255,255,255,0.08); padding-top:24px; cursor:pointer; }
+#t2 .bc:hover .bh { color:#fff; }
+#t2 .btg { font-family:'DM Mono',monospace; font-size:10px; color:rgba(255,255,255,0.18); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+#t2 .bh { font-family:'Playfair Display',serif; font-size:22px; color:rgba(255,255,255,0.5); font-weight:700; transition:color 0.2s; }
+#t2 footer { border-top:1px solid rgba(255,255,255,0.05); padding:80px; text-align:center; }
+#t2 footer h2 { font-family:'Playfair Display',serif; font-size:clamp(32px,5vw,56px); font-weight:900; color:#fff; margin-bottom:16px; }
+#t2 footer .fp { color:rgba(255,255,255,0.25); font-size:13px; margin-bottom:36px; font-weight:300; }
+#t2 .fb { display:inline-flex; align-items:center; gap:12px; color:#fff; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; border:1px solid rgba(255,255,255,0.18); padding:14px 32px; transition:all 0.2s; }
+#t2 .fb:hover { background:#fff; color:#080808; }
+#t2 .fc { margin-top:60px; font-size:11px; color:rgba(255,255,255,0.1); letter-spacing:1px; font-family:'DM Mono',monospace; }
+@media(max-width:900px){ #t2 .hero{grid-template-columns:1fr} #t2 .hi{min-height:50vh} #t2 nav{padding:16px 24px} #t2 .nlinks{display:none} #t2 .ht{padding:60px 32px} #t2 .sw{padding:60px 24px} #t2 .wg{grid-template-columns:1fr 1fr} #t2 .wc:first-child{grid-column:span 2} #t2 .bg2{grid-template-columns:1fr} #t2 footer{padding:60px 24px} }
 
 
-/* ╔═══════════════════════════════════════════════════════╗
-   ║  TEMPLATE 3 — Minimal crème / typographie Playfair  ║
-   ╚═══════════════════════════════════════════════════════╝ */
-#t3 {
-  font-family:'Inter',sans-serif;
-  background:#f8f5f0;
-  color:#3d3530;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-
-#t3 nav {
-  position:fixed; top:0; left:0; right:0; z-index:300;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:24px 60px;
-  background:rgba(248,245,240,0.92);
-  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(61,53,48,0.08);
-}
-
-#t3 .nav-logo { font-family:'Playfair Display',serif; font-weight:700; font-size:18px; color:#3d3530; text-decoration:none; letter-spacing:0.5px; }
-#t3 .nav-links { display:flex; gap:36px; list-style:none; }
-#t3 .nav-links a { font-size:12px; font-weight:500; color:rgba(61,53,48,0.5); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.2s; }
-#t3 .nav-links a:hover { color:#3d3530; }
-#t3 .nav-cta { background:#3d3530; color:#f8f5f0; border:none; border-radius:2px; padding:10px 24px; font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
-#t3 .nav-cta:hover { background:#c4956a; }
-
-#t3 .hero {
-  min-height:100vh;
-  display:flex; align-items:center;
-  padding:120px 60px 80px;
-  position:relative;
-  max-width:1200px;
-  margin:0 auto;
-  gap:80px;
-}
-
-/* Accent doré décoratif */
-#t3 .t3-accent {
-  position:fixed; top:0; right:80px;
-  width:1px; height:45vh;
-  background:linear-gradient(180deg, transparent, #c4956a, transparent);
-  opacity:0.4;
-  pointer-events:none;
-}
-
-/* Côté photo — disposition originale avec tags */
-#t3 .t3-photo-col {
-  flex-shrink:0;
-  position:relative;
-  width:260px;
-}
-
-#t3 .t3-photo-frame {
-  width:240px; height:300px;
-  border-radius:120px;
-  overflow:hidden;
-  position:relative; z-index:2;
-  box-shadow:0 24px 64px rgba(61,53,48,0.18);
-}
-
-#t3 .t3-photo-frame img {
-  width:100%; height:100%;
-  object-fit:cover; object-position:center 5%;
-  filter:sepia(15%) contrast(1.05);
-  display:block;
-}
-
-/* Tag disponible — flotte en haut à droite du cadre */
-#t3 .t3-tag-avail {
-  position:absolute;
-  top:20px;
-  right:-32px;
-  z-index:4;
-  display:flex; align-items:center; gap:8px;
-  background:#f8f5f0;
-  border:1px solid rgba(61,53,48,0.12);
-  border-radius:4px;
-  padding:8px 14px;
-  font-size:11px; font-weight:500; color:#3d3530;
-  box-shadow:0 4px 20px rgba(61,53,48,0.1);
-  white-space:nowrap;
-}
-#t3 .t3-dot { width:7px; height:7px; border-radius:50%; background:#c4956a; flex-shrink:0; }
-
-/* Tag rôle — en bas à gauche, légèrement hors du cadre */
-#t3 .t3-tag-role {
-  position:absolute;
-  bottom:20px;
-  left:-16px;
-  z-index:4;
-  background:#c4956a; color:white;
-  font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
-  padding:8px 18px; border-radius:4px;
-  box-shadow:0 4px 16px rgba(196,149,106,0.4);
-  white-space:nowrap;
-}
-
-/* Texte */
-#t3 .t3-text { flex:1; }
-#t3 .t3-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#c4956a; margin-bottom:20px; }
-#t3 h1 { font-family:'Playfair Display',serif; font-size:clamp(40px,5vw,64px); font-weight:900; line-height:1.08; color:#3d3530; margin-bottom:28px; letter-spacing:-1px; }
-#t3 h1 span { color:#c4956a; font-style:italic; }
-
-#t3 .t3-bio {
-  background:rgba(255,255,255,0.7);
-  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(196,149,106,0.15);
-  border-left:3px solid #c4956a;
-  border-radius:4px;
-  padding:24px 28px;
-  font-size:14.5px; line-height:1.85; color:#6b5e57;
-  box-shadow:0 4px 24px rgba(61,53,48,0.06);
-}
-
-/* Sections T3 */
-#t3 .t3-section { padding:72px 60px; max-width:1200px; margin:0 auto; }
-#t3 .t3-head { display:flex; align-items:center; gap:20px; margin-bottom:40px; }
-#t3 .t3-line { flex:1; height:1px; background:rgba(61,53,48,0.1); }
-#t3 .t3-stitle { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:#3d3530; }
-#t3 .t3-ssub { font-size:13px; color:rgba(61,53,48,0.4); margin-top:4px; }
-
-#t3 .t3-works { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:16px; min-height:380px; }
-#t3 .t3-work:first-child { grid-row:span 2; }
-#t3 .t3-work { background:rgba(255,255,255,0.8); border-radius:8px; overflow:hidden; border:1px solid rgba(61,53,48,0.07); box-shadow:0 2px 16px rgba(61,53,48,0.06); cursor:pointer; transition:all 0.25s; position:relative; display:flex; align-items:center; justify-content:center; }
-#t3 .t3-work:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(196,149,106,0.15); }
-#t3 .t3-ph { width:100%; height:100%; min-height:110px; background:linear-gradient(135deg,#f5ede3,#edddd0); display:flex; align-items:center; justify-content:center; color:#c4956a; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
-#t3 .t3-wov { position:absolute; inset:0; background:rgba(196,149,106,0.08); opacity:0; transition:opacity 0.25s; display:flex; align-items:center; justify-content:center; }
-#t3 .t3-work:hover .t3-wov { opacity:1; }
-#t3 .t3-wov span { background:#3d3530; color:#f8f5f0; font-size:11px; font-weight:600; padding:7px 20px; border-radius:2px; letter-spacing:1px; }
-#t3 .t3-dots { display:flex; gap:8px; }
-#t3 .t3-dots span { width:8px; height:8px; border-radius:50%; background:#c4956a; }
-
-#t3 .t3-blog { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-#t3 .t3-bcard { background:rgba(255,255,255,0.8); border:1px solid rgba(61,53,48,0.07); border-radius:8px; overflow:hidden; cursor:pointer; transition:all 0.25s; display:flex; flex-direction:column; }
-#t3 .t3-bcard:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(196,149,106,0.15); }
-#t3 .t3-btop { flex:1; min-height:130px; background:linear-gradient(135deg,#f5ede3,#edddd0); position:relative; overflow:hidden; }
-#t3 .t3-btop .bd { position:absolute; border-radius:50%; border:12px solid #c4956a; opacity:0.15; width:90px; height:90px; bottom:-20px; right:-20px; }
-#t3 .t3-bbot { padding:16px 20px 20px; }
-#t3 .t3-btag { background:rgba(196,149,106,0.12); color:#c4956a; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:2px; display:inline-block; margin-bottom:8px; }
-#t3 .t3-bcard h3 { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#3d3530; }
-
-#t3 footer { background:#3d3530; color:#f8f5f0; text-align:center; padding:72px 24px 48px; position:relative; overflow:hidden; }
-#t3 footer::before { content:''; position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:120px; height:120px; border-radius:50%; background:rgba(196,149,106,0.15); filter:blur(40px); }
-#t3 footer h2 { font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,48px); font-weight:900; margin-bottom:12px; color:#f8f5f0; }
-#t3 footer p { color:rgba(248,245,240,0.4); font-size:14px; margin-bottom:32px; font-weight:300; }
-#t3 .t3-foot-btn { background:#c4956a; color:white; border:none; border-radius:2px; padding:14px 36px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.2s; }
-#t3 .t3-foot-btn:hover { background:#d4a57a; box-shadow:0 6px 20px rgba(196,149,106,0.4); }
-#t3 .t3-copy { margin-top:48px; font-size:11px; color:rgba(248,245,240,0.15); letter-spacing:0.5px; font-family:'DM Mono',monospace; }
-
-@media(max-width:900px){
-  #t3 .hero { flex-direction:column; padding:100px 24px 60px; gap:48px; }
-  #t3 .t3-photo-col { width:100%; display:flex; flex-direction:column; align-items:center; }
-  #t3 .t3-photo-frame { width:200px; height:240px; }
-  #t3 nav { padding:16px 24px; }
-  #t3 .nav-links { display:none; }
-  #t3 .t3-section { padding:60px 24px; }
-  #t3 .t3-works { grid-template-columns:1fr 1fr; min-height:unset; }
-  #t3 .t3-work:first-child { grid-column:span 2; grid-row:span 1; }
-  #t3 .t3-blog { grid-template-columns:1fr; }
-  #t3 footer { padding:60px 24px 40px; }
-}
+/* ╔══════════════════════════════════════════╗
+   ║  T3 — Crème & Or / Cormorant           ║
+   ╚══════════════════════════════════════════╝ */
+#t3 { font-family:'Inter',sans-serif; background:#f8f5f0; color:#3d3530; }
+#t3 nav { position:fixed; top:0; left:0; right:0; z-index:300; display:flex; align-items:center; justify-content:space-between; padding:24px 60px; background:rgba(248,245,240,0.92); backdrop-filter:blur(16px); border-bottom:1px solid rgba(61,53,48,0.07); }
+#t3 .nl { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:20px; color:#3d3530; text-decoration:none; letter-spacing:1px; }
+#t3 .nlinks { display:flex; gap:36px; list-style:none; }
+#t3 .nlinks a { font-size:11px; font-weight:500; color:rgba(61,53,48,0.45); text-decoration:none; letter-spacing:2px; text-transform:uppercase; transition:color 0.2s; }
+#t3 .nlinks a:hover { color:#3d3530; }
+#t3 .nc { background:#3d3530; color:#f8f5f0; border:none; border-radius:2px; padding:10px 24px; font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+#t3 .nc:hover { background:#c4956a; }
+#t3 .acc { position:fixed; top:0; right:80px; width:1px; height:45vh; background:linear-gradient(180deg,transparent,#c4956a,transparent); opacity:0.35; pointer-events:none; }
+#t3 .hero { min-height:100vh; display:flex; align-items:center; padding:120px 60px 80px; max-width:1200px; margin:0 auto; gap:80px; }
+#t3 .pc { flex-shrink:0; position:relative; width:260px; }
+#t3 .pf { width:240px; height:300px; border-radius:120px; overflow:hidden; position:relative; z-index:2; box-shadow:0 24px 64px rgba(61,53,48,0.18); }
+#t3 .pf img { width:120%; height:120%; object-fit:cover; object-position:center 8%; margin-left:-10%; margin-top:-5%; filter:sepia(15%) contrast(1.05); display:block; }
+#t3 .ta { position:absolute; top:20px; right:-32px; z-index:4; display:flex; align-items:center; gap:8px; background:#f8f5f0; border:1px solid rgba(61,53,48,0.1); border-radius:4px; padding:8px 14px; font-size:11px; font-weight:500; color:#3d3530; box-shadow:0 4px 20px rgba(61,53,48,0.1); white-space:nowrap; }
+#t3 .td { width:7px; height:7px; border-radius:50%; background:#c4956a; }
+#t3 .tr { position:absolute; bottom:20px; left:-16px; z-index:4; background:#c4956a; color:#fff; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:8px 18px; border-radius:4px; box-shadow:0 4px 16px rgba(196,149,106,0.4); white-space:nowrap; }
+#t3 .txt { flex:1; }
+#t3 .sl { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#c4956a; margin-bottom:20px; }
+#t3 h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(44px,5.5vw,72px); font-weight:600; line-height:1.05; color:#3d3530; margin-bottom:28px; letter-spacing:-0.5px; }
+#t3 h1 em { font-style:italic; color:#c4956a; }
+#t3 .bc { background:rgba(255,255,255,0.65); backdrop-filter:blur(10px); border:1px solid rgba(196,149,106,0.12); border-left:3px solid #c4956a; border-radius:4px; padding:24px 28px; font-size:14.5px; line-height:1.85; color:#6b5e57; box-shadow:0 4px 24px rgba(61,53,48,0.06); }
+#t3 .sw { padding:72px 60px; max-width:1200px; margin:0 auto; }
+#t3 .sh { display:flex; align-items:center; gap:20px; margin-bottom:40px; }
+#t3 .sl2 { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; color:#3d3530; }
+#t3 .sln { flex:1; height:1px; background:rgba(61,53,48,0.1); }
+#t3 .ss { font-size:13px; color:rgba(61,53,48,0.4); margin-bottom:36px; }
+#t3 .wg { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:16px; min-height:360px; }
+#t3 .wg .wc:first-child { grid-row:span 2; }
+#t3 .wc { background:rgba(255,255,255,0.8); border-radius:8px; overflow:hidden; border:1px solid rgba(61,53,48,0.07); cursor:pointer; transition:all 0.25s; position:relative; display:flex; align-items:center; justify-content:center; }
+#t3 .wc:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(196,149,106,0.15); }
+#t3 .ph { width:100%; height:100%; min-height:100px; background:linear-gradient(135deg,#f5ede3,#edddd0); display:flex; align-items:center; justify-content:center; color:#c4956a; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
+#t3 .wo { position:absolute; inset:0; background:rgba(196,149,106,0.08); opacity:0; transition:opacity 0.25s; display:flex; align-items:center; justify-content:center; }
+#t3 .wc:hover .wo { opacity:1; }
+#t3 .wo span { background:#3d3530; color:#f8f5f0; font-size:11px; font-weight:600; padding:7px 20px; border-radius:2px; letter-spacing:1px; }
+#t3 .dots { display:flex; gap:8px; }
+#t3 .dots span { width:8px; height:8px; border-radius:50%; background:#c4956a; }
+#t3 .bg2 { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+#t3 .bcard { background:rgba(255,255,255,0.8); border:1px solid rgba(61,53,48,0.07); border-radius:8px; overflow:hidden; cursor:pointer; transition:all 0.25s; display:flex; flex-direction:column; }
+#t3 .bcard:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(196,149,106,0.15); }
+#t3 .btp { flex:1; min-height:120px; background:linear-gradient(135deg,#f5ede3,#edddd0); position:relative; overflow:hidden; }
+#t3 .btp .bd { position:absolute; border-radius:50%; border:12px solid #c4956a; opacity:0.15; width:90px; height:90px; bottom:-20px; right:-20px; }
+#t3 .bbt { padding:16px 20px 20px; }
+#t3 .btag { background:rgba(196,149,106,0.12); color:#c4956a; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:2px; display:inline-block; margin-bottom:8px; }
+#t3 .bcard h3 { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; color:#3d3530; }
+#t3 footer { background:#3d3530; color:#f8f5f0; text-align:center; padding:72px 24px 48px; }
+#t3 footer h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,5vw,56px); font-weight:600; margin-bottom:12px; }
+#t3 footer .fp { color:rgba(248,245,240,0.35); font-size:14px; margin-bottom:32px; font-weight:300; }
+#t3 .fb { background:#c4956a; color:#fff; border:none; border-radius:2px; padding:14px 36px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.2s; }
+#t3 .fb:hover { background:#d4a57a; }
+#t3 .fc { margin-top:48px; font-size:11px; color:rgba(248,245,240,0.12); font-family:'DM Mono',monospace; }
+@media(max-width:900px){ #t3 .hero{flex-direction:column;padding:100px 24px 60px;gap:48px} #t3 .pc{width:100%;align-items:center} #t3 .pf{width:200px;height:240px} #t3 nav{padding:16px 24px} #t3 .nlinks{display:none} #t3 .sw{padding:60px 24px} #t3 .wg{grid-template-columns:1fr 1fr;min-height:unset} #t3 .wg .wc:first-child{grid-column:span 2;grid-row:span 1} #t3 .bg2{grid-template-columns:1fr} }
 
 
-/* ═══════════════════════════════════════
-   REVEAL ANIMATION (partagé)
-═══════════════════════════════════════ */
-.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.65s ease, transform 0.65s ease; }
-.reveal.visible { opacity:1; transform:translateY(0); }
+/* ╔══════════════════════════════════════════╗
+   ║  T4 — Brutaliste / Unbounded           ║
+   ╚══════════════════════════════════════════╝ */
+#t4 { font-family:'Unbounded',sans-serif; background:#f0ee e8; color:#111; }
+#t4 { background:#f0eee8; }
+#t4 nav { position:fixed; top:0; left:0; right:0; z-index:300; display:flex; align-items:center; justify-content:space-between; padding:0 0 0 40px; background:#111; }
+#t4 .nl { font-size:11px; font-weight:900; letter-spacing:3px; color:#f0eee8; text-transform:uppercase; text-decoration:none; }
+#t4 .nlinks { display:flex; list-style:none; }
+#t4 .nlinks a { display:block; padding:20px 20px; font-size:10px; font-weight:700; color:rgba(240,238,232,0.4); text-decoration:none; letter-spacing:2px; text-transform:uppercase; transition:all 0.15s; border-left:1px solid rgba(255,255,255,0.06); }
+#t4 .nlinks a:hover { background:#222; color:#f0eee8; }
+#t4 .nc { background:#ff3b00; color:#fff; border:none; padding:20px 32px; font-family:'Unbounded',sans-serif; font-size:10px; font-weight:900; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.15s; margin-left:auto; }
+#t4 .nc:hover { background:#cc2e00; }
+#t4 .hero { min-height:100vh; padding:80px 0 0; display:grid; grid-template-rows:1fr auto; }
+#t4 .hi { display:grid; grid-template-columns:1fr 1fr; flex:1; }
+#t4 .himg { position:relative; overflow:hidden; background:#222; }
+#t4 .himg img { width:100%; height:100%; object-fit:cover; object-position:center 10%; filter:grayscale(100%); display:block; mix-blend-mode:luminosity; opacity:0.7; }
+#t4 .himg::before { content:'GRAPHISME'; position:absolute; bottom:24px; left:24px; z-index:3; font-size:9px; font-weight:900; letter-spacing:5px; color:rgba(240,238,232,0.4); }
+#t4 .t4r { position:absolute; top:24px; left:24px; z-index:3; background:#ff3b00; color:#fff; font-size:9px; font-weight:900; letter-spacing:3px; text-transform:uppercase; padding:6px 14px; }
+#t4 .t4a { position:absolute; bottom:24px; right:24px; z-index:3; display:flex; align-items:center; gap:6px; background:rgba(240,238,232,0.95); padding:8px 14px; font-size:9px; font-weight:700; letter-spacing:2px; color:#111; }
+#t4 .t4d { width:6px; height:6px; border-radius:50%; background:#ff3b00; }
+#t4 .htxt { padding:60px 48px; background:#f0eee8; display:flex; flex-direction:column; justify-content:center; }
+#t4 .t4n { font-size:9px; font-weight:700; letter-spacing:4px; color:#999; margin-bottom:24px; }
+#t4 h1 { font-size:clamp(36px,4.5vw,64px); font-weight:900; line-height:0.95; color:#111; margin-bottom:28px; letter-spacing:-2px; text-transform:uppercase; }
+#t4 h1 span { color:#ff3b00; }
+#t4 .bio { font-family:'Space Grotesk',sans-serif; font-size:14px; line-height:1.75; color:#555; margin-bottom:40px; font-weight:300; }
+#t4 .t4cta { display:inline-flex; align-items:center; gap:0; background:#111; color:#f0eee8; font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; text-decoration:none; padding:16px 28px; transition:all 0.15s; }
+#t4 .t4cta:hover { background:#ff3b00; }
+#t4 .hbar { border-top:1px solid #111; display:flex; }
+#t4 .hb-item { flex:1; padding:20px 32px; border-right:1px solid #111; font-size:9px; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:#999; }
+#t4 .hb-item:last-child { border-right:none; }
+#t4 .hb-item strong { display:block; font-size:20px; color:#111; margin-bottom:2px; letter-spacing:-1px; }
+#t4 .sw { padding:0; max-width:100%; margin:0; }
+#t4 .sh { display:flex; align-items:center; border-bottom:1px solid #111; border-top:1px solid #111; padding:20px 40px; }
+#t4 .sn { font-size:9px; font-weight:900; letter-spacing:4px; color:#999; margin-right:24px; }
+#t4 .st { font-size:13px; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:#111; }
+#t4 .wg { display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid #111; }
+#t4 .wc { border-right:1px solid #111; aspect-ratio:1; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.15s; position:relative; overflow:hidden; }
+#t4 .wc:last-child { border-right:none; }
+#t4 .wc:hover { background:#111; }
+#t4 .wc:hover .ph { color:#f0eee8; }
+#t4 .ph { font-size:9px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:#ccc; transition:color 0.15s; }
+#t4 .wc:first-child { grid-column:span 2; aspect-ratio:2/1; border-bottom:1px solid #111; }
+#t4 .bg2 { display:grid; grid-template-columns:1fr 1fr; }
+#t4 .bc { border-right:1px solid #111; border-bottom:1px solid #111; padding:40px; cursor:pointer; transition:background 0.15s; }
+#t4 .bc:last-child { border-right:none; }
+#t4 .bc:hover { background:#111; color:#f0eee8; }
+#t4 .bc:hover .btag { color:#ff3b00; }
+#t4 .bc:hover h3 { color:#f0eee8; }
+#t4 .btag { font-size:9px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:#999; margin-bottom:16px; transition:color 0.15s; }
+#t4 .bc h3 { font-size:18px; font-weight:900; color:#111; letter-spacing:-0.5px; transition:color 0.15s; }
+#t4 footer { background:#111; color:#f0eee8; padding:64px 40px; display:flex; align-items:flex-end; justify-content:space-between; }
+#t4 footer h2 { font-size:clamp(32px,5vw,60px); font-weight:900; letter-spacing:-2px; text-transform:uppercase; line-height:0.9; }
+#t4 footer h2 span { color:#ff3b00; }
+#t4 .fright { text-align:right; }
+#t4 .fp { color:rgba(240,238,232,0.3); font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:20px; }
+#t4 .fb { background:#ff3b00; color:#fff; border:none; padding:14px 32px; font-family:'Unbounded',sans-serif; font-size:10px; font-weight:900; letter-spacing:2px; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.2s; }
+#t4 .fb:hover { background:#cc2e00; }
+#t4 .fc { margin-top:24px; font-size:10px; color:rgba(240,238,232,0.15); letter-spacing:1px; font-family:'DM Mono',monospace; }
+@media(max-width:900px){ #t4 .hi{grid-template-columns:1fr} #t4 .himg{min-height:50vh} #t4 .nlinks{display:none} #t4 .htxt{padding:48px 24px} #t4 .wg{grid-template-columns:1fr 1fr} #t4 .wc:first-child{grid-column:span 2} #t4 .bg2{grid-template-columns:1fr} #t4 .hbar{flex-direction:column} #t4 .hb-item{border-right:none;border-bottom:1px solid #111} #t4 footer{flex-direction:column;gap:40px} }
+
+
+/* ╔══════════════════════════════════════════╗
+   ║  T5 — Vert forêt / Nature / Fraunces   ║
+   ╚══════════════════════════════════════════╝ */
+#t5 { font-family:'Inter',sans-serif; background:#f4f1eb; color:#2c3a2a; }
+#t5 nav { position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:300; background:rgba(44,58,42,0.92); backdrop-filter:blur(16px); border-radius:50px; padding:10px 28px; display:flex; align-items:center; gap:28px; white-space:nowrap; max-width:calc(100vw - 32px); }
+#t5 .nl { font-family:'Fraunces',serif; font-weight:700; font-size:15px; color:#e8dfc8; text-decoration:none; letter-spacing:0.5px; }
+#t5 .nd { width:1px; height:16px; background:rgba(232,223,200,0.2); }
+#t5 .nlinks { display:flex; gap:24px; list-style:none; }
+#t5 .nlinks a { font-size:12px; font-weight:500; color:rgba(232,223,200,0.5); text-decoration:none; letter-spacing:0.5px; transition:color 0.2s; }
+#t5 .nlinks a:hover { color:#e8dfc8; }
+#t5 .nc { background:#7a9e5f; color:#fff; border:none; border-radius:50px; padding:8px 20px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+#t5 .nc:hover { background:#5e7f47; }
+#t5 .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 40px 60px; position:relative; overflow:hidden; }
+/* Blobs organiques */
+#t5 .t5blob { position:fixed; border-radius:42% 58% 70% 30% / 45% 45% 55% 55%; pointer-events:none; }
+#t5 .t5b1 { width:500px; height:500px; background:rgba(122,158,95,0.12); top:-100px; right:-150px; animation:t5morph 12s ease-in-out infinite; }
+#t5 .t5b2 { width:350px; height:350px; background:rgba(122,158,95,0.08); bottom:50px; left:-100px; animation:t5morph 16s ease-in-out infinite reverse; }
+@keyframes t5morph { 0%,100%{border-radius:42% 58% 70% 30%/45% 45% 55% 55%} 50%{border-radius:70% 30% 30% 70%/70% 50% 50% 30%} }
+#t5 .hi { max-width:860px; width:100%; display:grid; grid-template-columns:280px 1fr; gap:72px; align-items:center; position:relative; z-index:1; }
+#t5 .pc { position:relative; display:flex; flex-direction:column; align-items:center; }
+#t5 .pr { width:220px; height:280px; border-radius:110px; overflow:hidden; position:relative; z-index:2; box-shadow:0 24px 60px rgba(44,58,42,0.2); }
+#t5 .pr img { width:120%; height:120%; object-fit:cover; object-position:center 8%; margin-left:-10%; margin-top:-5%; filter:sepia(20%) saturate(0.8) brightness(0.95); display:block; }
+#t5 .ta { position:absolute; top:16px; right:-24px; z-index:4; display:flex; align-items:center; gap:7px; background:rgba(244,241,235,0.95); border:1px solid rgba(44,58,42,0.12); border-radius:50px; padding:7px 16px; font-size:11px; font-weight:500; color:#2c3a2a; box-shadow:0 4px 20px rgba(44,58,42,0.12); white-space:nowrap; }
+#t5 .td { width:7px; height:7px; border-radius:50%; background:#7a9e5f; }
+#t5 .tr { position:absolute; bottom:16px; left:-12px; z-index:4; background:#2c3a2a; color:#e8dfc8; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:8px 18px; border-radius:50px; white-space:nowrap; }
+#t5 .sl { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#7a9e5f; margin-bottom:16px; }
+#t5 h1 { font-family:'Fraunces',serif; font-size:clamp(36px,5vw,58px); font-weight:700; line-height:1.05; color:#2c3a2a; margin-bottom:24px; letter-spacing:-0.5px; }
+#t5 h1 em { font-style:italic; color:#7a9e5f; }
+#t5 .bc { background:rgba(255,255,255,0.6); backdrop-filter:blur(10px); border:1px solid rgba(44,58,42,0.08); border-left:3px solid #7a9e5f; border-radius:8px; padding:22px 26px; font-size:14.5px; line-height:1.8; color:#5a6b57; box-shadow:0 4px 24px rgba(44,58,42,0.06); }
+#t5 .sw { padding:72px 40px; max-width:900px; margin:0 auto; position:relative; z-index:1; }
+#t5 .st { font-family:'Fraunces',serif; font-size:30px; font-weight:700; color:#2c3a2a; margin-bottom:8px; }
+#t5 .ss { color:rgba(44,58,42,0.4); font-size:13px; margin-bottom:36px; }
+#t5 .wg { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:16px; min-height:360px; }
+#t5 .wg .wc:first-child { grid-row:span 2; }
+#t5 .wc { background:rgba(255,255,255,0.7); border-radius:16px; overflow:hidden; border:1px solid rgba(44,58,42,0.07); cursor:pointer; transition:all 0.25s; position:relative; display:flex; align-items:center; justify-content:center; }
+#t5 .wc:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(122,158,95,0.18); }
+#t5 .ph { width:100%; height:100%; min-height:100px; background:linear-gradient(135deg,#eef3ea,#dde8d6); display:flex; align-items:center; justify-content:center; color:#7a9e5f; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+#t5 .wo { position:absolute; inset:0; background:rgba(122,158,95,0.08); opacity:0; transition:opacity 0.25s; display:flex; align-items:center; justify-content:center; }
+#t5 .wc:hover .wo { opacity:1; }
+#t5 .wo span { background:#2c3a2a; color:#e8dfc8; font-size:12px; font-weight:600; padding:7px 20px; border-radius:50px; }
+#t5 .dots { display:flex; gap:7px; }
+#t5 .dots span { width:9px; height:9px; border-radius:50%; background:#7a9e5f; }
+#t5 .bg2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+#t5 .bcard { background:rgba(255,255,255,0.7); border-radius:16px; overflow:hidden; border:1px solid rgba(44,58,42,0.07); min-height:200px; cursor:pointer; transition:all 0.25s; display:flex; flex-direction:column; }
+#t5 .bcard:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(122,158,95,0.18); }
+#t5 .btp { flex:1; background:linear-gradient(135deg,#e8f0e3,#d4e4cc); position:relative; overflow:hidden; min-height:120px; }
+#t5 .btp .bd { position:absolute; border-radius:50%; border:12px solid #7a9e5f; opacity:0.18; width:90px; height:90px; bottom:-20px; right:-20px; }
+#t5 .bbt { padding:16px 18px 18px; }
+#t5 .btag { background:rgba(122,158,95,0.15); color:#7a9e5f; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:50px; display:inline-block; margin-bottom:8px; }
+#t5 .bcard h3 { font-family:'Fraunces',serif; font-size:16px; font-weight:700; color:#2c3a2a; }
+#t5 footer { background:#2c3a2a; color:#e8dfc8; text-align:center; padding:72px 24px 48px; }
+#t5 footer h2 { font-family:'Fraunces',serif; font-size:clamp(28px,4vw,48px); font-weight:700; margin-bottom:12px; }
+#t5 footer .fp { color:rgba(232,223,200,0.35); font-size:14px; margin-bottom:32px; font-weight:300; }
+#t5 .fb { background:#7a9e5f; color:#fff; border:none; border-radius:50px; padding:14px 36px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.2s; }
+#t5 .fb:hover { background:#5e7f47; }
+#t5 .fc { margin-top:48px; font-size:11px; color:rgba(232,223,200,0.15); font-family:'DM Mono',monospace; }
+@media(max-width:720px){ #t5 .hi{grid-template-columns:1fr;gap:48px;text-align:center} #t5 .pc{margin:0 auto} #t5 .nlinks{display:none} #t5 .nd{display:none} #t5 .wg{grid-template-columns:1fr 1fr;min-height:unset} #t5 .wg .wc:first-child{grid-column:span 2;grid-row:span 1} #t5 .bg2{grid-template-columns:1fr} }
+
+
+/* ╔══════════════════════════════════════════╗
+   ║  T6 — Rose Pastel / Doux / Epilogue    ║
+   ╚══════════════════════════════════════════╝ */
+#t6 { font-family:'Epilogue',sans-serif; background:#fdf6f8; color:#4a2d35; }
+#t6 nav { position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:300; background:rgba(253,246,248,0.85); backdrop-filter:blur(20px); border:1px solid rgba(255,182,193,0.3); border-radius:50px; padding:10px 24px; display:flex; align-items:center; gap:24px; box-shadow:0 4px 24px rgba(74,45,53,0.08); white-space:nowrap; max-width:calc(100vw - 32px); }
+#t6 .nl { font-weight:900; font-size:13px; letter-spacing:1px; color:#4a2d35; text-transform:uppercase; text-decoration:none; }
+#t6 .nd { width:1px; height:16px; background:rgba(74,45,53,0.12); }
+#t6 .nlinks { display:flex; gap:22px; list-style:none; }
+#t6 .nlinks a { font-size:13px; font-weight:500; color:rgba(74,45,53,0.45); text-decoration:none; transition:color 0.2s; }
+#t6 .nlinks a:hover { color:#c0556a; }
+#t6 .nc { background:#c0556a; color:#fff; border:none; border-radius:50px; padding:8px 18px; font-family:'Epilogue',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s; }
+#t6 .nc:hover { background:#a8404f; }
+#t6 .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 40px 60px; position:relative; overflow:hidden; }
+#t6 .t6bg { position:fixed; inset:0; pointer-events:none; }
+#t6 .t6c1 { position:absolute; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(255,182,193,0.3),transparent 70%); top:-80px; right:-80px; }
+#t6 .t6c2 { position:absolute; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(192,85,106,0.12),transparent 70%); bottom:60px; left:-60px; }
+#t6 .hi { max-width:820px; width:100%; display:grid; grid-template-columns:240px 1fr; gap:60px; align-items:center; position:relative; z-index:1; }
+#t6 .pc { position:relative; display:flex; flex-direction:column; align-items:center; }
+#t6 .pr { width:200px; height:260px; border-radius:100px; overflow:hidden; position:relative; z-index:2; box-shadow:0 20px 60px rgba(192,85,106,0.2); border:4px solid rgba(255,182,193,0.4); }
+#t6 .pr img { width:120%; height:120%; object-fit:cover; object-position:center 8%; margin-left:-10%; margin-top:-5%; filter:grayscale(20%) sepia(10%); display:block; }
+#t6 .ta { position:absolute; top:16px; right:-20px; z-index:4; display:flex; align-items:center; gap:7px; background:rgba(253,246,248,0.95); border:1px solid rgba(192,85,106,0.15); border-radius:50px; padding:7px 16px; font-size:11px; font-weight:500; color:#4a2d35; box-shadow:0 4px 20px rgba(192,85,106,0.1); white-space:nowrap; }
+#t6 .td { width:7px; height:7px; border-radius:50%; background:#c0556a; }
+#t6 .tr { position:absolute; bottom:16px; left:-12px; z-index:4; background:#c0556a; color:#fff; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:8px 18px; border-radius:50px; white-space:nowrap; box-shadow:0 4px 16px rgba(192,85,106,0.35); }
+#t6 .sl { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#c0556a; margin-bottom:14px; }
+#t6 h1 { font-family:'DM Serif Display',serif; font-size:clamp(32px,4.5vw,52px); font-weight:400; line-height:1.1; color:#4a2d35; margin-bottom:22px; }
+#t6 h1 span { font-style:italic; color:#c0556a; }
+#t6 .bc { background:rgba(255,255,255,0.7); backdrop-filter:blur(12px); border:1px solid rgba(255,182,193,0.25); border-left:3px solid #c0556a; border-radius:16px; padding:22px 26px; font-size:14.5px; line-height:1.8; color:rgba(74,45,53,0.7); box-shadow:0 4px 24px rgba(192,85,106,0.07); }
+#t6 .sw { padding:72px 20px; max-width:900px; margin:0 auto; position:relative; z-index:1; }
+#t6 .st { font-family:'DM Serif Display',serif; font-size:28px; font-weight:400; color:#4a2d35; margin-bottom:8px; }
+#t6 .ss { color:rgba(74,45,53,0.4); font-size:13px; margin-bottom:36px; }
+#t6 .wg { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:14px; min-height:340px; }
+#t6 .wg .wc:first-child { grid-row:span 2; }
+#t6 .wc { background:rgba(255,255,255,0.8); border-radius:20px; overflow:hidden; border:1px solid rgba(255,182,193,0.2); cursor:pointer; transition:all 0.25s; position:relative; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 16px rgba(192,85,106,0.06); }
+#t6 .wc:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(192,85,106,0.14); }
+#t6 .ph { width:100%; height:100%; min-height:100px; background:linear-gradient(135deg,#fce8ed,#f5d0d8); display:flex; align-items:center; justify-content:center; color:#c0556a; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; opacity:0.7; }
+#t6 .wo { position:absolute; inset:0; background:rgba(192,85,106,0.07); opacity:0; transition:opacity 0.25s; display:flex; align-items:center; justify-content:center; }
+#t6 .wc:hover .wo { opacity:1; }
+#t6 .wo span { background:#c0556a; color:#fff; font-size:12px; font-weight:600; padding:7px 20px; border-radius:50px; }
+#t6 .dots { display:flex; gap:7px; }
+#t6 .dots span { width:9px; height:9px; border-radius:50%; background:#c0556a; opacity:0.5; }
+#t6 .bg2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+#t6 .bcard { background:rgba(255,255,255,0.8); border-radius:20px; overflow:hidden; border:1px solid rgba(255,182,193,0.2); min-height:200px; cursor:pointer; transition:all 0.25s; display:flex; flex-direction:column; }
+#t6 .bcard:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(192,85,106,0.14); }
+#t6 .btp { flex:1; background:linear-gradient(135deg,#fce8ed,#f5d0d8); position:relative; overflow:hidden; min-height:120px; }
+#t6 .btp .bd { position:absolute; border-radius:50%; border:12px solid #c0556a; opacity:0.15; width:90px; height:90px; bottom:-20px; right:-20px; }
+#t6 .bbt { padding:16px 18px 18px; }
+#t6 .btag { background:rgba(192,85,106,0.1); color:#c0556a; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:50px; display:inline-block; margin-bottom:8px; }
+#t6 .bcard h3 { font-family:'DM Serif Display',serif; font-size:16px; color:#4a2d35; }
+#t6 footer { background:#4a2d35; color:#fdf6f8; text-align:center; padding:72px 24px 48px; }
+#t6 footer h2 { font-family:'DM Serif Display',serif; font-size:clamp(28px,4vw,48px); font-weight:400; margin-bottom:12px; }
+#t6 footer .fp { color:rgba(253,246,248,0.35); font-size:14px; margin-bottom:32px; }
+#t6 .fb { background:#c0556a; color:#fff; border:none; border-radius:50px; padding:14px 36px; font-family:'Epilogue',sans-serif; font-size:13px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.2s; }
+#t6 .fb:hover { background:#a8404f; }
+#t6 .fc { margin-top:48px; font-size:11px; color:rgba(253,246,248,0.12); font-family:'DM Mono',monospace; }
+@media(max-width:720px){ #t6 .hi{grid-template-columns:1fr;gap:48px;text-align:center} #t6 .pc{margin:0 auto} #t6 .nlinks{display:none} #t6 .nd{display:none} #t6 .wg{grid-template-columns:1fr 1fr;min-height:unset} #t6 .wg .wc:first-child{grid-column:span 2;grid-row:span 1} #t6 .bg2{grid-template-columns:1fr} }
+
+
+/* Shared section labels for t1 */
+#t1 .sw .sl { font-size:10.5px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#0088FF; margin-bottom:12px; }
+
 </style>
 </head>
 <body>
 
-<!-- ══════════ SÉLECTEUR ══════════ -->
-<div class="template-switcher">
-  <button class="tpl-btn active" onclick="showTemplate(1)">① Actuel</button>
-  <button class="tpl-btn" onclick="showTemplate(2)">② Éditorial</button>
-  <button class="tpl-btn" onclick="showTemplate(3)">③ Raffiné</button>
+<!-- SÉLECTEUR -->
+<div class="switcher">
+  <button class="tb active" onclick="show(1)">① Actuel</button>
+  <button class="tb" onclick="show(2)">② Éditorial</button>
+  <button class="tb" onclick="show(3)">③ Crème & Or</button>
+  <button class="tb" onclick="show(4)">④ Brutaliste</button>
+  <button class="tb" onclick="show(5)">⑤ Nature</button>
+  <button class="tb" onclick="show(6)">⑥ Rose Doux</button>
 </div>
 
 
-<!-- ══════════════════════════════════════════════
-     TEMPLATE 1 — Style actuel, hero réagencé
-══════════════════════════════════════════════ -->
+<!-- ══ T1 ══ -->
 <div id="t1" class="template active">
-
-  <div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
-
+  <div class="blobs"><div class="bl b1"></div><div class="bl b2"></div><div class="bl b3"></div></div>
   <nav>
-    <a href="#t1-top" class="nav-logo">C.Zamboni</a>
-    <div class="nav-div"></div>
-    <ul class="nav-links">
-      <li><a href="#t1-apropos">À propos</a></li>
-      <li><a href="#t1-travaux">Travaux</a></li>
-      <li><a href="#t1-blog">Blog</a></li>
-    </ul>
-    <button class="nav-cta" onclick="document.getElementById('t1-contact').scrollIntoView({behavior:'smooth'})">CONTACT</button>
+    <a href="#t1" class="nl">C.Zamboni</a>
+    <div class="nd"></div>
+    <ul class="nlinks"><li><a href="#t1w">Travaux</a></li><li><a href="#t1b">Blog</a></li></ul>
+    <button class="nc" onclick="document.getElementById('t1f').scrollIntoView({behavior:'smooth'})">CONTACT</button>
   </nav>
-
-  <div class="hero" id="t1-top" id="t1-apropos">
-    <div class="hero-inner">
-
-      <div class="photo-col">
-        <!-- Tag disponible : AU-DESSUS, décalé à droite → texte déborde hors du cercle -->
-        <div class="tag-available">
-          <span class="tag-dot"></span>
-          Disponible pour de nouveaux projets
-        </div>
-        <div class="photo-ring">
-          <img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.style.background='linear-gradient(135deg,#e0ecff,#c0d8ff)'"/>
-        </div>
-        <!-- Tag graphic designer : EN BAS, déborde à gauche -->
-        <div class="tag-role">Graphic Designer</div>
+  <div class="hero">
+    <div class="hi">
+      <div class="pc">
+        <div class="ta"><span class="td"></span>Disponible pour de nouveaux projets</div>
+        <div class="pr"><img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.parentElement.style.background='linear-gradient(135deg,#d0e4ff,#b8d0f8)'"/></div>
+        <div class="tr">Graphic Designer</div>
       </div>
-
       <div>
-        <p class="section-label">À propos</p>
+        <p class="sl">À propos</p>
         <h1>Je suis <span>Charly<br>Zamboni</span></h1>
-        <div class="bio-card">
-          Je m'appelle Charly Zamboni, je suis étudiant en Science Technique Des Arts Appliqué à Cahors. Depuis le collège, je suis passionné par le graphisme. J'ai fait mes stages de classe de 3ème et de 2nd dans une entreprise de communication qui m'a permis d'apprendre des bases solides sur les logiciels comme Illustrator et Photoshop que j'ai ensuite pu consolider de mon côté.
-        </div>
+        <div class="bc">Je m'appelle Charly Zamboni, je suis étudiant en Science Technique Des Arts Appliqué à Cahors. Depuis le collège, je suis passionné par le graphisme. J'ai fait mes stages de classe de 3ème et de 2nd dans une entreprise de communication qui m'a permis d'apprendre des bases solides sur les logiciels comme Illustrator et Photoshop que j'ai ensuite pu consolider de mon côté.</div>
       </div>
-
     </div>
   </div>
-
-  <div class="section-wrap" id="t1-travaux">
-    <div class="reveal"><p class="section-label">Portfolio</p><h2 class="section-title">Travaux</h2><p class="section-sub">Quelques projets réalisés en graphisme et design.</p></div>
-    <div class="works-grid reveal">
-      <div class="work-card"><div class="ph">Projet 01</div><div class="work-overlay"><span>Voir</span></div></div>
-      <div class="work-card"><div class="ph">Projet 02</div><div class="work-overlay"><span>Voir</span></div></div>
-      <div class="work-card"><div class="ph">Projet 03</div><div class="work-overlay"><span>Voir</span></div></div>
-      <div class="work-card"><div class="ph">Projet 04</div><div class="work-overlay"><span>Voir</span></div></div>
-      <div class="work-card"><div class="dots"><span></span><span style="opacity:.4"></span><span style="opacity:.15"></span></div></div>
+  <div class="sw" id="t1w">
+    <div class="reveal"><p class="sl">Portfolio</p><h2 class="st">Travaux</h2><p class="ss">Quelques projets réalisés en graphisme et design.</p></div>
+    <div class="wg reveal">
+      <div class="wc"><div class="ph">Projet 01</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 02</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 03</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 04</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="dots"><span></span><span style="opacity:.4"></span><span style="opacity:.15"></span></div></div>
     </div>
   </div>
-
-  <div class="section-wrap" id="t1-blog">
-    <div class="reveal"><p class="section-label">Actualités</p><h2 class="section-title">Blog</h2><p class="section-sub">Réflexions, processus et inspirations.</p></div>
-    <div class="blog-grid reveal">
-      <div class="blog-card"><div class="blog-top"><div class="bd"></div></div><div class="blog-bot"><span class="blog-tag">Design</span><h3>Article à venir</h3></div></div>
-      <div class="blog-card"><div class="blog-top" style="background:linear-gradient(135deg,#fff7ed,#ffedd5)"><div class="bd" style="border-color:#fb923c"></div></div><div class="blog-bot"><span class="blog-tag" style="background:#fff7ed;color:#ea580c">Process</span><h3>Article à venir</h3></div></div>
+  <div class="sw" id="t1b">
+    <div class="reveal"><p class="sl">Actualités</p><h2 class="st">Blog</h2><p class="ss">Réflexions, processus et inspirations.</p></div>
+    <div class="bg2 reveal">
+      <div class="bcard"><div class="bt"><div class="bd"></div></div><div class="bb"><span class="btag">Design</span><h3>Article à venir</h3></div></div>
+      <div class="bcard"><div class="bt" style="background:linear-gradient(135deg,#fff7ed,#ffedd5)"><div class="bd" style="border-color:#fb923c"></div></div><div class="bb"><span class="btag" style="background:#fff7ed;color:#ea580c">Process</span><h3>Article à venir</h3></div></div>
     </div>
   </div>
-
-  <footer id="t1-contact">
-    <p class="section-label" style="color:#66b8ff;margin-bottom:12px">Contact</p>
+  <footer id="t1f">
+    <p class="sl" style="color:#66b8ff;margin-bottom:12px">Contact</p>
     <h2>Travaillons ensemble</h2>
-    <p>Une idée, un projet ? N'hésite pas à me contacter.</p>
-    <a href="mailto:contact@czamboni.fr" class="foot-btn">Envoyer un message</a>
-    <p class="foot-copy">© 2025 Charly Zamboni — Graphic Designer</p>
+    <p class="fp">Une idée, un projet ? N'hésite pas à me contacter.</p>
+    <a href="mailto:contact@czamboni.fr" class="fb">Envoyer un message</a>
+    <p class="fc">© 2025 Charly Zamboni — Graphic Designer</p>
   </footer>
+</div>
 
-</div><!-- /t1 -->
 
-
-<!-- ══════════════════════════════════════
-     TEMPLATE 2 — Éditorial noir
-══════════════════════════════════════ -->
+<!-- ══ T2 ══ -->
 <div id="t2" class="template">
-
   <nav>
-    <a href="#t2-top" class="nav-logo">C.Zamboni</a>
-    <ul class="nav-links">
-      <li><a href="#t2-travaux">Travaux</a></li>
-      <li><a href="#t2-blog">Blog</a></li>
-    </ul>
-    <button class="nav-cta" onclick="document.getElementById('t2-contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+    <a href="#t2" class="nl">C.Zamboni</a>
+    <ul class="nlinks"><li><a href="#t2w">Travaux</a></li><li><a href="#t2b">Blog</a></li></ul>
+    <button class="nc" onclick="document.getElementById('t2f').scrollIntoView({behavior:'smooth'})">Contact</button>
   </nav>
-
-  <div class="hero" id="t2-top">
-    <div class="hero-img">
+  <div class="hero">
+    <div class="hi">
       <img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.style.background='#1a1a1a'"/>
-      <div class="t2-tag-role">Graphic Designer</div>
-      <div class="t2-tag-avail"><span class="t2-dot"></span> Disponible</div>
+      <div class="t2r">Graphic Designer</div>
+      <div class="t2a"><span class="t2d"></span>Disponible</div>
     </div>
-    <div class="hero-text">
-      <div class="t2-number">01 / À PROPOS</div>
+    <div class="ht">
+      <div class="tn">01 / À PROPOS</div>
       <h1>Charly<br><em>Zamboni</em></h1>
-      <p class="t2-bio">Je suis étudiant en Science Technique Des Arts Appliqué à Cahors. Passionné par le graphisme depuis le collège, j'ai forgé mes compétences sur Illustrator et Photoshop lors de stages en agence de communication.</p>
-      <a href="#t2-travaux" class="t2-cta">Voir mes travaux <span class="t2-arrow"></span></a>
+      <p class="bio">Étudiant en Science Technique Des Arts Appliqué à Cahors. Passionné par le graphisme depuis le collège, compétences forgées sur Illustrator et Photoshop lors de stages en agence de communication.</p>
+      <a href="#t2w" class="cta">Voir mes travaux <span class="arr"></span></a>
     </div>
   </div>
-
-  <div class="t2-section" id="t2-travaux">
-    <div class="t2-section-head reveal"><span class="t2-num">02</span><h2 class="t2-title">Travaux</h2></div>
-    <div class="t2-works reveal">
-      <div class="t2-work"><span>Projet 01</span></div>
-      <div class="t2-work"><span>Projet 02</span></div>
-      <div class="t2-work"><span>Projet 03</span></div>
-      <div class="t2-work"><span>Projet 04</span></div>
-      <div class="t2-work"><span>Projet 05</span></div>
+  <div class="sw" id="t2w">
+    <div class="sh reveal"><span class="sn">02</span><h2 class="st">Travaux</h2></div>
+    <div class="wg reveal">
+      <div class="wc"><span>Projet 01</span></div><div class="wc"><span>Projet 02</span></div>
+      <div class="wc"><span>Projet 03</span></div><div class="wc"><span>Projet 04</span></div><div class="wc"><span>Projet 05</span></div>
     </div>
   </div>
-
-  <div class="t2-section" id="t2-blog">
-    <div class="t2-section-head reveal"><span class="t2-num">03</span><h2 class="t2-title">Blog</h2></div>
-    <div class="t2-blog reveal">
-      <div class="t2-bcard"><p class="t2-btag">Design</p><h3 class="t2-btitle">Article à venir</h3></div>
-      <div class="t2-bcard"><p class="t2-btag">Process</p><h3 class="t2-btitle">Article à venir</h3></div>
+  <div class="sw" id="t2b">
+    <div class="sh reveal"><span class="sn">03</span><h2 class="st">Blog</h2></div>
+    <div class="bg2 reveal">
+      <div class="bc"><p class="btg">Design</p><h3 class="bh">Article à venir</h3></div>
+      <div class="bc"><p class="btg">Process</p><h3 class="bh">Article à venir</h3></div>
     </div>
   </div>
-
-  <footer id="t2-contact">
-    <h2>Travaillons<br>ensemble.</h2>
-    <p>Une idée, un projet ? N'hésite pas.</p>
-    <a href="mailto:contact@czamboni.fr" class="t2-foot-btn">Envoyer un message</a>
-    <p class="t2-copy">© 2025 Charly Zamboni</p>
-  </footer>
-
-</div><!-- /t2 -->
+  <footer id="t2f"><h2>Travaillons<br>ensemble.</h2><p class="fp">Une idée, un projet ?</p><a href="mailto:contact@czamboni.fr" class="fb">Envoyer un message</a><p class="fc">© 2025 Charly Zamboni</p></footer>
+</div>
 
 
-<!-- ══════════════════════════════════════
-     TEMPLATE 3 — Minimal crème raffiné
-══════════════════════════════════════ -->
+<!-- ══ T3 ══ -->
 <div id="t3" class="template">
-
-  <div class="t3-accent"></div>
-
+  <div class="acc"></div>
   <nav>
-    <a href="#t3-top" class="nav-logo">C. Zamboni</a>
-    <ul class="nav-links">
-      <li><a href="#t3-travaux">Travaux</a></li>
-      <li><a href="#t3-blog">Blog</a></li>
-    </ul>
-    <button class="nav-cta" onclick="document.getElementById('t3-contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+    <a href="#t3" class="nl">C. Zamboni</a>
+    <ul class="nlinks"><li><a href="#t3w">Travaux</a></li><li><a href="#t3b">Blog</a></li></ul>
+    <button class="nc" onclick="document.getElementById('t3f').scrollIntoView({behavior:'smooth'})">Contact</button>
   </nav>
-
-  <div class="hero" id="t3-top">
-    <div class="t3-photo-col">
-      <div class="t3-tag-avail">
-        <span class="t3-dot"></span>
-        Disponible pour de nouveaux projets
-      </div>
-      <div class="t3-photo-frame">
-        <img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.style.background='#e8ddd4'"/>
-      </div>
-      <div class="t3-tag-role">Graphic Designer</div>
+  <div class="hero">
+    <div class="pc">
+      <div class="ta"><span class="td"></span>Disponible pour de nouveaux projets</div>
+      <div class="pf"><img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.style.background='#e8ddd4'"/></div>
+      <div class="tr">Graphic Designer</div>
     </div>
-
-    <div class="t3-text">
-      <p class="t3-label">À propos</p>
-      <h1>Je suis<br><span>Charly<br>Zamboni</span></h1>
-      <div class="t3-bio">
-        Je m'appelle Charly Zamboni, je suis étudiant en Science Technique Des Arts Appliqué à Cahors. Depuis le collège, je suis passionné par le graphisme. J'ai fait mes stages de classe de 3ème et de 2nd dans une entreprise de communication qui m'a permis d'apprendre des bases solides sur les logiciels comme Illustrator et Photoshop que j'ai ensuite pu consolider de mon côté.
-      </div>
+    <div class="txt">
+      <p class="sl">À propos</p>
+      <h1>Je suis<br><em>Charly<br>Zamboni</em></h1>
+      <div class="bc">Je m'appelle Charly Zamboni, je suis étudiant en Science Technique Des Arts Appliqué à Cahors. Depuis le collège, je suis passionné par le graphisme. J'ai fait mes stages de classe de 3ème et de 2nd dans une entreprise de communication qui m'a permis d'apprendre des bases solides sur les logiciels comme Illustrator et Photoshop que j'ai ensuite pu consolider de mon côté.</div>
     </div>
   </div>
-
-  <div class="t3-section" id="t3-travaux">
-    <div class="t3-head reveal"><h2 class="t3-stitle">Travaux</h2><div class="t3-line"></div></div>
-    <p class="t3-ssub reveal" style="margin-bottom:32px">Quelques projets réalisés en graphisme et design.</p>
-    <div class="t3-works reveal">
-      <div class="t3-work"><div class="t3-ph">Projet 01</div><div class="t3-wov"><span>Voir</span></div></div>
-      <div class="t3-work"><div class="t3-ph">Projet 02</div><div class="t3-wov"><span>Voir</span></div></div>
-      <div class="t3-work"><div class="t3-ph">Projet 03</div><div class="t3-wov"><span>Voir</span></div></div>
-      <div class="t3-work"><div class="t3-ph">Projet 04</div><div class="t3-wov"><span>Voir</span></div></div>
-      <div class="t3-work"><div class="t3-dots"><span></span><span style="opacity:.4"></span><span style="opacity:.15"></span></div></div>
+  <div class="sw" id="t3w">
+    <div class="sh reveal"><h2 class="sl2">Travaux</h2><div class="sln"></div></div>
+    <p class="ss reveal">Quelques projets réalisés en graphisme et design.</p>
+    <div class="wg reveal">
+      <div class="wc"><div class="ph">Projet 01</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 02</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 03</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 04</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="dots"><span></span><span style="opacity:.4"></span><span style="opacity:.15"></span></div></div>
     </div>
   </div>
-
-  <div class="t3-section" id="t3-blog">
-    <div class="t3-head reveal"><h2 class="t3-stitle">Blog</h2><div class="t3-line"></div></div>
-    <p class="t3-ssub reveal" style="margin-bottom:32px">Réflexions, processus et inspirations.</p>
-    <div class="t3-blog reveal">
-      <div class="t3-bcard"><div class="t3-btop"><div class="bd"></div></div><div class="t3-bbot"><span class="t3-btag">Design</span><h3>Article à venir</h3></div></div>
-      <div class="t3-bcard"><div class="t3-btop" style="background:linear-gradient(135deg,#f0ece6,#e5ddd4)"><div class="bd" style="border-color:#a07850"></div></div><div class="t3-bbot"><span class="t3-btag" style="background:rgba(160,120,80,0.12);color:#a07850">Process</span><h3>Article à venir</h3></div></div>
+  <div class="sw" id="t3b">
+    <div class="sh reveal"><h2 class="sl2">Blog</h2><div class="sln"></div></div>
+    <p class="ss reveal">Réflexions, processus et inspirations.</p>
+    <div class="bg2 reveal">
+      <div class="bcard"><div class="btp"><div class="bd"></div></div><div class="bbt"><span class="btag">Design</span><h3>Article à venir</h3></div></div>
+      <div class="bcard"><div class="btp" style="background:linear-gradient(135deg,#f0ece6,#e5ddd4)"><div class="bd" style="border-color:#a07850"></div></div><div class="bbt"><span class="btag" style="background:rgba(160,120,80,0.12);color:#a07850">Process</span><h3>Article à venir</h3></div></div>
     </div>
   </div>
+  <footer id="t3f"><h2>Travaillons ensemble</h2><p class="fp">Une idée, un projet ? N'hésite pas.</p><a href="mailto:contact@czamboni.fr" class="fb">Envoyer un message</a><p class="fc">© 2025 Charly Zamboni</p></footer>
+</div>
 
-  <footer id="t3-contact">
-    <h2>Travaillons ensemble</h2>
-    <p>Une idée, un projet ? N'hésite pas à me contacter.</p>
-    <a href="mailto:contact@czamboni.fr" class="t3-foot-btn">Envoyer un message</a>
-    <p class="t3-copy">© 2025 Charly Zamboni — Graphic Designer</p>
+
+<!-- ══ T4 ══ -->
+<div id="t4" class="template">
+  <nav>
+    <a href="#t4" class="nl">C.Zamboni</a>
+    <ul class="nlinks"><li><a href="#t4w">Travaux</a></li><li><a href="#t4b">Blog</a></li></ul>
+    <button class="nc" onclick="document.getElementById('t4f').scrollIntoView({behavior:'smooth'})">Contact</button>
+  </nav>
+  <div class="hero">
+    <div class="hi">
+      <div class="himg">
+        <img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.style.background='#333'"/>
+        <div class="t4r">Graphic Designer</div>
+        <div class="t4a"><span class="t4d"></span>Disponible</div>
+      </div>
+      <div class="htxt">
+        <div class="t4n">01 / DESIGNER</div>
+        <h1>CHARLY<br><span>ZAMBA</span><br>-ONI</h1>
+        <p class="bio">Étudiant en STAA à Cahors. Passionné de graphisme depuis le collège, forgé sur Illustrator & Photoshop en agence.</p>
+        <a href="#t4w" class="t4cta">Voir les travaux</a>
+      </div>
+    </div>
+    <div class="hbar">
+      <div class="hb-item"><strong>2</strong>Années d'exp.</div>
+      <div class="hb-item"><strong>∞</strong>Créativité</div>
+      <div class="hb-item"><strong>2</strong>Stages agence</div>
+      <div class="hb-item"><strong>1</strong>Passion</div>
+    </div>
+  </div>
+  <div class="sw" id="t4w">
+    <div class="sh"><span class="sn">02</span><span class="st">TRAVAUX</span></div>
+    <div class="wg">
+      <div class="wc"><span class="ph">Projet 01</span></div><div class="wc"><span class="ph">Projet 02</span></div>
+      <div class="wc"><span class="ph">Projet 03</span></div><div class="wc"><span class="ph">Projet 04</span></div>
+    </div>
+  </div>
+  <div class="sw" id="t4b">
+    <div class="sh"><span class="sn">03</span><span class="st">BLOG</span></div>
+    <div class="bg2">
+      <div class="bc"><p class="btag">Design</p><h3>Article à venir</h3></div>
+      <div class="bc"><p class="btag">Process</p><h3>Article à venir</h3></div>
+    </div>
+  </div>
+  <footer id="t4f">
+    <h2>TRAVAILLONS<br><span>ENSEMBLE</span></h2>
+    <div class="fright">
+      <p class="fp">Une idée, un projet ?</p>
+      <a href="mailto:contact@czamboni.fr" class="fb">Envoyer un message</a>
+      <p class="fc">© 2025 Charly Zamboni</p>
+    </div>
   </footer>
+</div>
 
-</div><!-- /t3 -->
+
+<!-- ══ T5 ══ -->
+<div id="t5" class="template">
+  <div class="t5blob t5b1"></div><div class="t5blob t5b2"></div>
+  <nav>
+    <a href="#t5" class="nl">C. Zamboni</a>
+    <div class="nd"></div>
+    <ul class="nlinks"><li><a href="#t5w">Travaux</a></li><li><a href="#t5b">Blog</a></li></ul>
+    <button class="nc" onclick="document.getElementById('t5f').scrollIntoView({behavior:'smooth'})">Contact</button>
+  </nav>
+  <div class="hero">
+    <div class="hi">
+      <div class="pc">
+        <div class="ta"><span class="td"></span>Disponible pour de nouveaux projets</div>
+        <div class="pr"><img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.style.background='#c8d9b8'"/></div>
+        <div class="tr">Graphic Designer</div>
+      </div>
+      <div>
+        <p class="sl">À propos</p>
+        <h1>Je suis<br><em>Charly<br>Zamboni</em></h1>
+        <div class="bc">Je m'appelle Charly Zamboni, je suis étudiant en Science Technique Des Arts Appliqué à Cahors. Depuis le collège, je suis passionné par le graphisme. J'ai fait mes stages de classe de 3ème et de 2nd dans une entreprise de communication qui m'a permis d'apprendre des bases solides sur les logiciels comme Illustrator et Photoshop que j'ai ensuite pu consolider de mon côté.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sw" id="t5w">
+    <div class="reveal"><h2 class="st">Travaux</h2><p class="ss">Quelques projets réalisés en graphisme et design.</p></div>
+    <div class="wg reveal">
+      <div class="wc"><div class="ph">Projet 01</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 02</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 03</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 04</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="dots"><span></span><span style="opacity:.4"></span><span style="opacity:.15"></span></div></div>
+    </div>
+  </div>
+  <div class="sw" id="t5b">
+    <div class="reveal"><h2 class="st">Blog</h2><p class="ss">Réflexions, processus et inspirations.</p></div>
+    <div class="bg2 reveal">
+      <div class="bcard"><div class="btp"><div class="bd"></div></div><div class="bbt"><span class="btag">Design</span><h3>Article à venir</h3></div></div>
+      <div class="bcard"><div class="btp" style="background:linear-gradient(135deg,#e8f4e0,#d4eac8)"><div class="bd" style="border-color:#5e8f40"></div></div><div class="bbt"><span class="btag" style="background:rgba(94,143,64,0.15);color:#5e8f40">Process</span><h3>Article à venir</h3></div></div>
+    </div>
+  </div>
+  <footer id="t5f"><h2>Travaillons ensemble</h2><p class="fp">Une idée, un projet ? N'hésite pas.</p><a href="mailto:contact@czamboni.fr" class="fb">Envoyer un message</a><p class="fc">© 2025 Charly Zamboni</p></footer>
+</div>
+
+
+<!-- ══ T6 ══ -->
+<div id="t6" class="template">
+  <div class="t6bg"><div class="t6c1"></div><div class="t6c2"></div></div>
+  <nav>
+    <a href="#t6" class="nl">C.Zamboni</a>
+    <div class="nd"></div>
+    <ul class="nlinks"><li><a href="#t6w">Travaux</a></li><li><a href="#t6b">Blog</a></li></ul>
+    <button class="nc" onclick="document.getElementById('t6f').scrollIntoView({behavior:'smooth'})">Contact</button>
+  </nav>
+  <div class="hero">
+    <div class="hi">
+      <div class="pc">
+        <div class="ta"><span class="td"></span>Disponible pour de nouveaux projets</div>
+        <div class="pr"><img src="IMG_2625_2.jpeg" alt="Charly Zamboni" onerror="this.style.background='#f0c8d0'"/></div>
+        <div class="tr">Graphic Designer</div>
+      </div>
+      <div>
+        <p class="sl">À propos</p>
+        <h1>Je suis <span>Charly<br>Zamboni</span></h1>
+        <div class="bc">Je m'appelle Charly Zamboni, je suis étudiant en Science Technique Des Arts Appliqué à Cahors. Depuis le collège, je suis passionné par le graphisme. J'ai fait mes stages de classe de 3ème et de 2nd dans une entreprise de communication qui m'a permis d'apprendre des bases solides sur les logiciels comme Illustrator et Photoshop que j'ai ensuite pu consolider de mon côté.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sw" id="t6w">
+    <div class="reveal"><h2 class="st">Travaux</h2><p class="ss">Quelques projets réalisés en graphisme et design.</p></div>
+    <div class="wg reveal">
+      <div class="wc"><div class="ph">Projet 01</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 02</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 03</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="ph">Projet 04</div><div class="wo"><span>Voir</span></div></div>
+      <div class="wc"><div class="dots"><span></span><span style="opacity:.4"></span><span style="opacity:.15"></span></div></div>
+    </div>
+  </div>
+  <div class="sw" id="t6b">
+    <div class="reveal"><h2 class="st">Blog</h2><p class="ss">Réflexions, processus et inspirations.</p></div>
+    <div class="bg2 reveal">
+      <div class="bcard"><div class="btp"><div class="bd"></div></div><div class="bbt"><span class="btag">Design</span><h3>Article à venir</h3></div></div>
+      <div class="bcard"><div class="btp" style="background:linear-gradient(135deg,#f8e8ec,#f0d0d8)"><div class="bd" style="border-color:#a84060"></div></div><div class="bbt"><span class="btag" style="background:rgba(168,64,96,0.1);color:#a84060">Process</span><h3>Article à venir</h3></div></div>
+    </div>
+  </div>
+  <footer id="t6f"><h2>Travaillons ensemble</h2><p class="fp">Une idée, un projet ? N'hésite pas.</p><a href="mailto:contact@czamboni.fr" class="fb">Envoyer un message</a><p class="fc">© 2025 Charly Zamboni</p></footer>
+</div>
 
 
 <script>
-function showTemplate(n) {
+function show(n) {
   document.querySelectorAll('.template').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tpl-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
   document.getElementById('t'+n).classList.add('active');
-  document.querySelectorAll('.tpl-btn')[n-1].classList.add('active');
-  window.scrollTo({top:0, behavior:'instant'});
-  observeReveals();
+  document.querySelectorAll('.tb')[n-1].classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  observe();
 }
-
-function observeReveals() {
-  const reveals = document.querySelectorAll('.template.active .reveal');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach((e,i) => {
-      if(e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i*100);
-        io.unobserve(e.target);
-      }
-    });
-  }, {threshold:0.1});
-  reveals.forEach(el => { el.classList.remove('visible'); io.observe(el); });
+function observe() {
+  const io = new IntersectionObserver(es => {
+    es.forEach((e,i) => { if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);io.unobserve(e.target);} });
+  },{threshold:0.1});
+  document.querySelectorAll('.template.active .reveal').forEach(el=>{el.classList.remove('visible');io.observe(el);});
 }
-
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if(t) t.scrollIntoView({behavior:'smooth'});
-  });
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});});
 });
-
-observeReveals();
+observe();
 </script>
 </body>
 </html>
